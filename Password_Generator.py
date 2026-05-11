@@ -1,30 +1,26 @@
 import random
 
 def password_generator(length):
-
-    print("length received:", length)
-
-    characters = "qwertyuiopasdfghjklzxcvbnm1234567890!@#$%&"
+    codes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()"
 
     password = ""
 
-    for character in range(length):
-        password += random.choice(characters)
+    for i in range(length):
+        password += random.choice(codes)
 
-    with open("Created_Passwords", "a") as cp:
-        cp.write(password + "\n")
+    return password    
 
-    return password
+print("**WELCOME TO WORLDS BEST PASSWORD GENERATOR**")
+length = int(input("Enter the desired length of PASSWORD you want to generate : "))
 
+with open("created_password","a+") as cp :
+    created_passwords = cp.read()
 
-print("**Welcome! This is world's best password generator**")
+password = ""
+while password  in created_passwords:
+    password = password_generator(length)
 
-length = int(input("Enter the length of password you want to generate:\n"))
-
-password = password_generator(length)
-
-with open("Created_Passwords", "r") as cp:
-    content = cp.read()
-
-if password in content:
-    print(f"Your password is:\n{password}")
+with open("created_password","a+") as cp :
+    cp.write(password + "\n")
+    
+print("Your password is:",password)
